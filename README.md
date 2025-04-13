@@ -33,67 +33,35 @@ A simple Library Management System built using Java, Spring Boot, and SQL Databa
 
 ## API Endpoints
 
-### User Endpoints:
-- POST /api/users/register`: Register a new user.
-- GET /api/books`: Get all available books.
-  `GET /api/books/search?title={title}`: Search books by title.
-- GET /api/books/search?author={author}`: Search books by author.
-- POST /api/rent/{bookId}`: Rent a book.
-- POST /api/return/{bookId}`: Return a rented book.
+The API will be available at http://localhost:8080 with these endpoints:
 
-### Admin Endpoints (secured):
-- POST /api/admin/books`: Add a new book.
-- PUT /api/admin/books/{bookId}`: Update book details.
-- DELETE /api/admin/books/{bookId}`: Remove a book.
+Authentication:
 
 
-Main Application Files:
+POST /api/auth/register - Register new user
+
+POST /api/auth/login - Login user
+
+Books (requires authentication):
 
 
+GET /api/books - Get all books
 
-src/App.jsx: Main application component with routing setup
+GET /api/books/search?query={query} - Search books
 
-src/main.jsx: Application entry point
+POST /api/books/{id}/borrow - Borrow a book
 
-src/index.css: Global styles and theme configuration
+POST /api/books/{id}/return - Return a book
 
-
-
-Pages:
-
+Admin endpoints (requires ADMIN role):
 
 
-src/pages/Home.jsx: Landing page with welcome message and features
+POST /api/admin/books - Add new book
 
-src/pages/Books.jsx: Book listing and management
+PUT /api/admin/books/{id} - Update book
 
-src/pages/Login.jsx: User authentication
+DELETE /api/admin/books/{id} - Delete book
 
-src/pages/Register.jsx: New user registration
-
-src/pages/AdminDashboard.jsx: Admin interface for book management
-
-
-
-Components:
-
-
-
-src/components/Navbar.jsx: Navigation bar with user controls
-
-src/components/ui/: UI components like buttons and toasts
-
-
-
-Context:
-
-
-
-src/contexts/AuthContext.jsx: User authentication state management
-
-
-
-To test the application, you can use these demo credentials:
 
 
 Admin: admin@library.com / admin
@@ -103,7 +71,7 @@ User: user@library.com / user
 ## Setup Instructions
 
 1. **Clone the repository:**
-   ```bash
+
   - git clone https://github.com/Lily-Evan/library-management-system.git
 
   
