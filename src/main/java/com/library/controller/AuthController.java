@@ -2,25 +2,28 @@
 package com.library.controller;
 
 import com.library.service.UserService;
+import com.library.security.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
     private final UserService userService;
-    
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
+    private final JwtTokenProvider tokenProvider;
     
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        return userService.register(request);
+    public ResponseEntity<?> register(@RequestBody @Valid User user) {
+        return ResponseEntity.ok(userService.createUser(user));
     }
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        return userService.login(request);
+        // Authentication logic here
+        String token = tokenProvider.generateToken(user);
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }
 
@@ -28,35 +31,37 @@ public class AuthController {
 package com.library.controller;
 
 import com.library.service.BookService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/books")
+@RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
     
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
-    
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public ResponseEntity<?> getAllBooks() {
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
     
     @GetMapping("/search")
-    public List<Book> searchBooks(@RequestParam String query) {
-        return bookService.searchBooks(query);
+    public ResponseEntity<?> searchBooks(@RequestParam String query) {
+        return ResponseEntity.ok(bookService.searchBooks(query));
     }
     
     @PostMapping("/{id}/borrow")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> borrowBook(@PathVariable Long id) {
-        return bookService.borrowBook(id);
+        return ResponseEntity.ok(bookService.borrowBook(id, getCurrentUser()));
     }
     
     @PostMapping("/{id}/return")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> returnBook(@PathVariable Long id) {
-        return bookService.returnBook(id);
+        return ResponseEntity.ok(bookService.returnBook(id, getCurrentUser()));
     }
 }
 
@@ -64,29 +69,31 @@ public class BookController {
 package com.library.controller;
 
 import com.library.service.BookService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/books")
+@RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     private final BookService bookService;
     
-    public AdminController(BookService bookService) {
-        this.bookService = bookService;
-    }
-    
     @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    public ResponseEntity<?> addBook(@RequestBody @Valid Book book) {
+        return ResponseEntity.ok(bookService.addBook(book));
     }
     
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
+    public ResponseEntity<?> updateBook(@PathVariable Long id, @RequestBody @Valid Book book) {
+        return ResponseEntity.ok(bookService.updateBook(id, book));
     }
     
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id) {
+    public ResponseEntity<?> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
+        return ResponseEntity.ok().build();
     }
 }
