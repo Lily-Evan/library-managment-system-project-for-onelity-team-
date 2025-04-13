@@ -1,77 +1,84 @@
-# library-managment-system-project-for-onelity-team-
+# 📚 Library Management System
 
+A simple **Library Management System** built with **Java**, **Spring Boot**, and **SQL Database** (MySQL/PostgreSQL).  
+This RESTful API allows users to **register**, **search**, **rent**, and **return** books, while **admins** can manage the library's collection.
 
-# Library Management System
+---
 
-A simple Library Management System built using Java, Spring Boot, and SQL Database (MySQL/PostgreSQL). This system allows users to register, search, rent, and return books, while admins can manage the library's book collection.
+## ✨ Features
 
-## Features
+### 👤 User Features:
+- 🔐 **Register**: Users can register with username & password.
+- 📖 **View Books**: See all available books.
+- 🔍 **Search**: Look up books by title or author.
+- 📚 **Rent**: Rent a book if it is available.
+- ↩️ **Return**: Return a book that was rented.
 
-### User Features:
-- **Registration**: Users can register to the library by providing a username and password.
-- **View Books**: Users can view all available books.
-- **Search Books**: Users can search for books by title or author.
-- **Rent Books**: Users can rent books if they are available.
-- **Return Books**: Users can return books that they have rented.
+### 🛠️ Admin Features:
+- ➕ **Add Book**: Add new books to the collection.
+- ✏️ **Update Book**: Edit book info (title, author).
+- ❌ **Delete Book**: Remove books from the library.
 
-### Admin Features:
-- **Add Book**: Admins can add new books to the library.
-- **Update Book Info**: Admins can update book details (title, author).
-- **Remove Book**: Admins can remove books from the library.
+### 🔐 Authentication & Authorization:
+- **Users** can: view, search, rent, and return books.
+- **Admins** can: manage the entire book catalog.
 
-### Authentication & Authorization:
-- **Users**: Can only view, search, rent, and return books.
-- **Admins**: Can manage the books in the library.
+---
 
-## Technologies Used
-- **Java**: Programming language.
-- **Spring Boot**: Framework for building the REST API.
-- **Spring Data JPA**: ORM framework to interact with the database.
-- **Spring Security**: For managing user authentication and authorization.
-- **SQL Database**: MySQL/PostgreSQL for storing user and book information.
-- **H2 Database (optional)**: For local development/testing.
+## 🧰 Technologies Used
 
-## API Endpoints
+- ☕ **Java** – Programming language
+- ⚙️ **Spring Boot** – Backend framework
+- 🛢️ **Spring Data JPA** – ORM for DB access
+- 🔐 **Spring Security** – Authentication & authorization
+- 🗃️ **PostgreSQL / MySQL** – Primary database
+- 💾 **H2** – Optional for in-memory testing
 
-The API will be available at http://localhost:8080 with these endpoints:
+---
 
-Authentication:
+## 📌 API Endpoints
 
+Base URL: `http://localhost:8080`
 
-POST /api/auth/register - Register new user
+### 🔑 Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/auth/register` | Register a new user |
+| `POST` | `/api/auth/login` | Login and receive JWT |
 
-POST /api/auth/login - Login user
+### 📚 Book Endpoints (requires authentication)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/books` | Get all books |
+| `GET` | `/api/books/search?query={titleOrAuthor}` | Search books |
+| `POST` | `/api/books/{id}/borrow` | Rent a book |
+| `POST` | `/api/books/{id}/return` | Return a book |
 
-Books (requires authentication):
+### 🛠️ Admin Endpoints (requires `ADMIN` role)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+|POST` | /api/admin/books` | Add a new book |
+| PUT` | /api/admin/books/{id}` | Update book |
+| DELETE` | `/api/admin/books/{id}` | Delete book |
 
+---
 
-GET /api/books - Get all books
+## 🧪 Test Accounts
 
-GET /api/books/search?query={query} - Search books
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@library.com` | admin` |
+| User  | user@library.com`  | user`  |
 
-POST /api/books/{id}/borrow - Borrow a book
+---
 
-POST /api/books/{id}/return - Return a book
+## 🛠️ Setup Instructions
 
-Admin endpoints (requires ADMIN role):
+### 🔧 Database Setup (PostgreSQL example)
 
+1. Install PostgreSQL
+2. Create the database:
+   ```sql
+   CREATE DATABASE library_db;
 
-POST /api/admin/books - Add new book
-
-PUT /api/admin/books/{id} - Update book
-
-DELETE /api/admin/books/{id} - Delete book
-
-
-
-Admin: admin@library.com / admin
-
-User: user@library.com / user
-
-## Setup Instructions
-
-1. **Clone the repository:**
-
-  - git clone https://github.com/Lily-Evan/library-management-system.git
-
-  
+   
