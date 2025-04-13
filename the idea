@@ -1,0 +1,28 @@
+library-management/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── library/
+│   │   │           ├── LibraryApplication.java
+│   │   │           ├── config/
+│   │   │           │   └── DatabaseConfig.java
+│   │   │           ├── controller/
+│   │   │           │   ├── AuthController.java
+│   │   │           │   ├── BookController.java
+│   │   │           │   └── AdminController.java
+│   │   │           ├── model/
+│   │   │           │   ├── User.java
+│   │   │           │   ├── Book.java
+│   │   │           │   └── Review.java
+│   │   │           ├── repository/
+│   │   │           │   ├── UserRepository.java
+│   │   │           │   ├── BookRepository.java
+│   │   │           │   └── ReviewRepository.java
+│   │   │           └── service/
+│   │   │               ├── UserService.java
+│   │   │               └── BookService.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── data.sql
+└── pom.xml
