@@ -46,6 +46,60 @@ A simple Library Management System built using Java, Spring Boot, and SQL Databa
 - PUT /api/admin/books/{bookId}`: Update book details.
 - DELETE /api/admin/books/{bookId}`: Remove a book.
 
+
+Main Application Files:
+
+
+
+src/App.jsx: Main application component with routing setup
+
+src/main.jsx: Application entry point
+
+src/index.css: Global styles and theme configuration
+
+
+
+Pages:
+
+
+
+src/pages/Home.jsx: Landing page with welcome message and features
+
+src/pages/Books.jsx: Book listing and management
+
+src/pages/Login.jsx: User authentication
+
+src/pages/Register.jsx: New user registration
+
+src/pages/AdminDashboard.jsx: Admin interface for book management
+
+
+
+Components:
+
+
+
+src/components/Navbar.jsx: Navigation bar with user controls
+
+src/components/ui/: UI components like buttons and toasts
+
+
+
+Context:
+
+
+
+src/contexts/AuthContext.jsx: User authentication state management
+
+
+
+To test the application, you can use these demo credentials:
+
+
+Admin: admin@library.com / admin
+
+User: user@library.com / user
+
 ## Setup Instructions
 
 1. **Clone the repository:**
