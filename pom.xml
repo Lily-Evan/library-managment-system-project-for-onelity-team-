@@ -88,3 +88,14 @@
         </plugins>
     </build>
 </project>
+
+
+cd C:/Users/pg2a15/Documents/library-management
+
+git init
+git add .
+git commit -m "📚 Initial commit of Library Management System"
+git branch -M main
+git remote add origin https://github.com/Lily-Evan/library-management.git
+git push -u origin main
+
